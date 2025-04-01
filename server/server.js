@@ -6,6 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import connectDB from './config/db.js';
 import { authRoutes } from './routes/authRoutes.js';
+import { incomeRoutes } from './routes/incomeRoutes.js';
 
 //  CREATE EXPRESS APP
 const app = express();
@@ -26,6 +27,7 @@ connectDB();
 
 // ROUTES
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/income', incomeRoutes)
 
 // SERVE UPLOADS FOLDER
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
