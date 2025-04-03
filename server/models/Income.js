@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User } from "./User.js";
+// This is the schema for the Income model
 
 const IncomeSchema = new mongoose.Schema({
     userId: {
