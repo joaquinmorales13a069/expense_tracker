@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import InfoCard from "../../components/cards/InfoCard";
+import RecentTransactions from "../../components/cards/RecentTransactions";
+import FinanceOverview from "../../components/cards/FinanceOverview";
+import ExpenseTransactions from "../../components/cards/ExpenseTransactions";
+import Last30DaysExpenses from "../../components/cards/Last30DaysExpenses";
 
 // import icons
 import { IoMdCard } from "react-icons/io";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { addThousandsSeparator } from "../../utils/helper";
-import RecentTransactions from "../../components/cards/RecentTransactions";
+
 
 const Home = () => {
     useUserAuth();
@@ -74,7 +78,23 @@ const Home = () => {
                 </div>
 
                 <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <RecentTransactions transactions={dashboardData?.recentTransactions} onSeeMore={()=> navigate("/expense")}/>
+                    <RecentTransactions
+                        transactions={dashboardData?.recentTransactions}
+                        onSeeMore={() => navigate("/expense")}
+                    />
+                    <FinanceOverview
+                        totalBalance={dashboardData?.totalBalance || 0}
+                        totalIncome={dashboardData?.totalIncome || 0}
+                        totalExpense={dashboardData?.totalExpense || 0}
+                    />
+                    <ExpenseTransactions
+                        transactions={
+                            dashboardData?.last30DaysExpenses?.transactions ||
+                            []
+                        }
+                        onSeeMore={() => navigate("/expense")}
+                    />
+                    <Last30DaysExpenses data={dashboardData?.last30DaysExpenses?.transactions || []}/>
                 </div>
             </div>
         </DashboardLayout>
