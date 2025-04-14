@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/inputs/Input.jsx";
@@ -12,7 +12,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const { updateUser } = userContext(UserContext)
+    const { updatedUser } = useContext(UserContext)
 
     const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ const Login = () => {
 
             if (token){
                 localStorage.setItem("token", token)
-                updateUser(user)
+                updatedUser(user)
                 navigate("/dashboard")
             }
         } catch (error) {
