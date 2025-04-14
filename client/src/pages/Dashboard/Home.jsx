@@ -9,12 +9,13 @@ import RecentTransactions from "../../components/cards/RecentTransactions";
 import FinanceOverview from "../../components/cards/FinanceOverview";
 import ExpenseTransactions from "../../components/cards/ExpenseTransactions";
 import Last30DaysExpenses from "../../components/cards/Last30DaysExpenses";
+import RecentIncomeWithChart from "../../components/cards/RecentIncomeWithChart";
+import RecentIncome from "../../components/cards/RecentIncome";
 
 // import icons
 import { IoMdCard } from "react-icons/io";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { addThousandsSeparator } from "../../utils/helper";
-
 
 const Home = () => {
     useUserAuth();
@@ -94,7 +95,29 @@ const Home = () => {
                         }
                         onSeeMore={() => navigate("/expense")}
                     />
-                    <Last30DaysExpenses data={dashboardData?.last30DaysExpenses?.transactions || []}/>
+                    <Last30DaysExpenses
+                        data={
+                            dashboardData?.last30DaysExpenses?.transactions ||
+                            []
+                        }
+                    />
+
+                    <RecentIncomeWithChart
+                        data={
+                            dashboardData?.last60DaysIncome?.transactions?.slice(
+                                0,
+                                4
+                            ) || []
+                        }
+                        totalIncome={dashboardData?.totalIncome || 0}
+                    />
+
+                    <RecentIncome
+                        transactions={
+                            dashboardData?.last60DaysIncome?.transactions || []
+                        }
+                        onSeeMore={() => navigate("/income")}
+                    />
                 </div>
             </div>
         </DashboardLayout>
