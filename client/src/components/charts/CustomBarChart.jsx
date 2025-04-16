@@ -10,9 +10,17 @@ import {
     ResponsiveContainer,
     Cell,
 } from "recharts";
-import CustomTooltip from "./CustomTooltip";
 
-function CustomBarChart({ data }) {
+
+function CustomBarChart({ data = [] }) {
+    // Return early if no data
+    if (!data || data.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-[300px]">
+                <p className="text-gray-500">No data to display</p>
+            </div>
+        );
+    }
 
     // Function to get the color of the bar based on the index
     const getBarColor = (index) => {
@@ -23,9 +31,11 @@ function CustomBarChart({ data }) {
         if (active && payload && payload.length) {
             return (
                 <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
-                    <p className=" text-xs font-semibold text-purple-800 mb-1">{payload[0].payload.category}</p>
-                    <p className=" text-sm text-gray-600">
-                        Amount: <span className=" text-sm font-medium text-gray-900">
+                    <p className="text-xs font-semibold text-purple-800 mb-1">
+                        {payload[0].payload.source || payload[0].payload.category}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                        Amount: <span className="text-sm font-medium text-gray-900">
                             {payload[0].payload.amount}
                         </span>
                     </p>
@@ -36,7 +46,7 @@ function CustomBarChart({ data }) {
     }
 
     return (
-        <div className=" bg-white mt-6">
+        <div className="bg-white mt-6">
             <ResponsiveContainer width={"100%"} height={300}>
                 <BarChart data={data}>
                     <CartesianGrid stroke="none" />

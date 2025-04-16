@@ -12,6 +12,7 @@ import Income from "./pages/Dashboard/Income.jsx";
 import Expense from "./pages/Dashboard/Expense.jsx";
 import UserProvider from "./context/UserContext.jsx";
 
+
 const App = () => {
     return (
         <UserProvider>
@@ -23,7 +24,7 @@ const App = () => {
                         <Route path={'/signUp'} exact element={<SignUp />} />
                         <Route path={'/dashboard'} exact element={<Home />} />
                         <Route path={'/income'} exact element={<Income />} />
-                        <Route path={'/expenses'} exact element={<Expense />} />
+                        <Route path={'/expense'} exact element={<Expense />} />
                     </Routes>
                 </Router>
             </div>
