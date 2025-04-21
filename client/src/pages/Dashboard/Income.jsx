@@ -93,6 +93,25 @@ const Income = () => {
     // Handle download income
     const handleDownloadIncome = async () => {
         // Your implementation here
+        try {
+            const response = await axiosInstance.get(API_PATHS.INCOME.DOWNLOAD, {
+                responseType: "blob", // Important for downloading files
+            })
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "income_details.xlsx"); // Specify the file name
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link); // Clean up
+            window.URL.revokeObjectURL(url); // Release the object URL
+        } catch (error) {
+            console.error(
+                "Error downloading income details: ",
+                error.response?.data?.message || error.message
+            );
+            alert("Failed to download income details");
+        }
     }
 
     useEffect(() => {
